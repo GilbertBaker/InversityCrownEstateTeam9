@@ -1,11 +1,10 @@
-import flask
+from flask import Flask, render_template
 
-app = flask.Flask(__name__)
+app = Flask(__name__)
 
-@app.route("/<path:filename>")
-def serve_static(filename):
-	return flask.send_from_directory("deploy",filename)
-	
-@app.route("/")
-def index():
-	return flask.send_from_directory("deploy","main.html")
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
