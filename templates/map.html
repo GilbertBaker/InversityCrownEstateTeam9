@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <base href="../" target="_blank">
+    <link rel="stylesheet" type="text/css" href="style.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" integrity="sha512-Zcn6bjR/8RZbLEpLIeOwNtzREBAJnUKESxces60Mpoj+2okopSAcSUIUOseddDm0cxnGQzxIR7vJgsLZbdLE3w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <script src="../static/js/helper.js"></script>
@@ -25,7 +26,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { // load.
 
 let temperature_basis = 283 // Kelvin
 
-function iterate_data(name,callback) {
+function iterate_data(name,callback) { // function to iterate through a downloaded CSV from the server.
     let csv_raw = $download("static/"+name);
     let csv_data = csv_raw.split("\n");
     for (let index = 0; index < csv_data.length; index++) {
@@ -37,7 +38,7 @@ function iterate_data(name,callback) {
 let winds_raw = $download("static/winds.csv")
 let winds_data = winds_raw.split("\n");
 
-iterate_data("winds.csv",function(data) {
+iterate_data("winds.csv",function(data) { // Display rectangles
     let longitude = Number(data[0]);
     let latitude = Number(data[1]);
     let temperature = Number(data[2]);
@@ -76,7 +77,7 @@ var arrow_icon = L.icon({
     shadowAnchor: [22, 94]
 });
 
-iterate_data("waves.csv",function(data) {
+iterate_data("waves.csv",function(data) { // Potential code for waves.csv data.
     let longitude = Number(data[0]);
     let latitude = Number(data[1]);
     let period = Number(data[2]);
@@ -85,7 +86,7 @@ iterate_data("waves.csv",function(data) {
 
     var bounds = [[latitude-0.5,longitude+0.5],[latitude+0.5,longitude-0.5]];
 
-    /*L.marker([latitude,longitude], {
+    /*L.marker([latitude,longitude], { // Requires a github package.
         rotationAngle: direction,
         icon: arrow_icon
     }).addTo(map);*/
