@@ -37,3 +37,7 @@ function $download(path) { // Downloads a file from the server
     }
     return result;
 }
+Number.prototype.clamp = function(min, max) {
+return Math.min(Math.max(this, min), max);
+};
+  

@@ -24,9 +24,27 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { // load.
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-let winds_raw = $download("winds.csv")
-let winds_data = winds_raw.split(/\r?\n/);
-console.log(winds_data)
+let winds_raw = $download("static/winds.csv")
+let winds_data = winds_raw.split("\n");
+
+let basis = 283 // Kelvin
+
+for (let index = 0; index < winds_data.length; index++ ) {
+    let data = winds_data[index].split(",");
+
+    let longitude = Number(data[0]);
+    let latitude = Number(data[1]);
+    let temperature = Number(data[2]);
+    let gust = Number(data[3]);
+    let wind = Number(data[4]);
+
+    let temperature_value = ((temperature-basis)*40).clamp(0,255);
+    let gust_value = (gust*25).clamp(0,255);
+    let wind_value = (gust*25).clamp(0,255);
+
+    var bounds = [[longitude-0.5,latitude+0.5],[longitude+0.5,latitude-0.5]];
+    L.rectangle(bounds, {fillColor: "rgb("+temperature_value+","+gust_value+","+wind_value+")", weight: 0}).addTo(map);
+}
 
 </script>
 </html>
