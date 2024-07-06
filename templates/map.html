@@ -39,11 +39,22 @@ for (let index = 0; index < winds_data.length; index++ ) {
     let wind = Number(data[4]);
 
     let temperature_value = ((temperature-basis)*40).clamp(0,255);
-    let gust_value = (gust*25).clamp(0,255);
-    let wind_value = (gust*25).clamp(0,255);
+    let gust_value = (gust*28).clamp(0,255);
+    let wind_value = (gust*36).clamp(0,255);
 
-    var bounds = [[longitude-0.5,latitude+0.5],[longitude+0.5,latitude-0.5]];
-    L.rectangle(bounds, {fillColor: "rgb("+temperature_value+","+gust_value+","+wind_value+")", weight: 0}).addTo(map);
+    var bounds = [[latitude-0.5,longitude+0.5],[latitude+0.5,longitude-0.5]];
+    let popup = L.rectangle(bounds, {fillColor: "rgb("+temperature_value+","+gust_value+","+wind_value+")", weight: 0, fillOpacity: 0.8}).addTo(map);
+    popup.bindPopup("Yearly Average:\nLatitude:"+latitude
+    +"\nLongtiude: "+longitude+
+    "\nTemperature: "+Math.round(temperature-273)+
+    "\nGust: "+Math.round(gust)+
+    "m/s\nWind: "+Math.round(wind)+"m/s");
+    popup.on('mouseover', function (e) {
+        this.openPopup();
+    });
+    popup.on('mouseout', function (e) {
+        this.closePopup();
+    });
 }
 
 </script>
