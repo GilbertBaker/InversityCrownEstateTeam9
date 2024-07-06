@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <base href="../" target="_blank">
-    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"/>
 </head>
 <script src="helper.js"></script>
 <body style="
@@ -20,19 +20,19 @@ background-repeat: no-repeat;">
                 <frame-expand>
                     <frame-retract>
                       <bubble-button>
-                       Menu
+                        Crown Estate
                       </bubble-button>
                     </frame-retract>
                     <frame-expand>
                       <frame-scroller style="padding:5px;flex: 1 1;">
 													<bubble-button id="home-button" class="menu-button">
-															Home
+                            About
 													</bubble-button>
                           <bubble-button id="home-button" class="menu-button">
-                              About
+                            Action
                           </bubble-button>
                           <bubble-button id="home-button" class="menu-button">
-                              Docs
+                            Analysis
                           </bubble-button>
                       </frame-scroller>
                     </frame-expand>
