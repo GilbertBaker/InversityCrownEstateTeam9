@@ -1,3 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <base href="../" target="_blank">
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
+<script src="helper.js"></script>
+<body style="
+background-image: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) ), url('ocean.jpg');
+background-attachment: fixed;
 background-size: cover;
 background-repeat: no-repeat;">
 <frame-rows>
@@ -13,20 +25,14 @@ background-repeat: no-repeat;">
                     </frame-retract>
                     <frame-expand>
                       <frame-scroller style="padding:5px;flex: 1 1;">
-													<bubble-button>
+													<bubble-button id="home-button" class="menu-button">
 															Home
 													</bubble-button>
-                          <bubble-button>
+                          <bubble-button id="home-button" class="menu-button">
                               About
                           </bubble-button>
-                          <bubble-button>
+                          <bubble-button id="home-button" class="menu-button">
                               Docs
-                          </bubble-button>
-                          <bubble-button>
-                              Mallard
-                          </bubble-button>
-                          <bubble-button>
-                              Blog
                           </bubble-button>
                       </frame-scroller>
                     </frame-expand>
@@ -36,5 +42,8 @@ background-repeat: no-repeat;">
         </frame-columns>
     </frame-expand>
 </frame-rows>
+<script>
+
+</script>
 </body>
 </html>
