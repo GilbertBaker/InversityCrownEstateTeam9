@@ -68,6 +68,15 @@ iterate_data("winds.csv",function(data) {
     });
 })
 
+var myIcon = L.icon({
+    iconUrl: 'arrow.png',
+    iconSize: [38, 95],
+    iconAnchor: [22, 94],
+    popupAnchor: [-3, -76],
+    shadowSize: [68, 95],
+    shadowAnchor: [22, 94]
+});
+
 iterate_data("waves.csv",function(data) {
     let longitude = Number(data[0]);
     let latitude = Number(data[1]);
