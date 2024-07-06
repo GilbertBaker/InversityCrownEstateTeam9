@@ -24,14 +24,16 @@ function $remove_event(element,name,callback) {
 function $get(id) {
     return document.getElementById(id);
 }
-function $get_class(classname) {
+function $get_class(classname) { // Get all elements of a class (just an alias)
     return document.getElementsByClassName(classname);
 }
-function $toggle(element,initial="block") {
-    if (element.style.display !== 'none') {
-        element.style.display = 'none';
+function $download(path) { // Downloads a file from the server
+    var result = null;
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", path, false);
+    xmlhttp.send();
+    if (xmlhttp.status==200) {
+        result = xmlhttp.responseText;
     }
-    else {
-        element.style.display = initial;
-    }
+    return result;
 }
