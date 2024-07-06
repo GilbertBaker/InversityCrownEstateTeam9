@@ -84,8 +84,6 @@ frame-bubble {
     z-index: -1; }
 
 frame-reader {
-  overflow: scroll;
-  scrollbar-width: thin;
   display: inline; }
 
 bubble-button {
