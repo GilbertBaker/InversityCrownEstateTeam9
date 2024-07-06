@@ -24,30 +24,41 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { // load.
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
+let temperature_basis = 283 // Kelvin
+
+function iterate_data(name,callback) {
+    let csv_raw = $download("static/"+name);
+    let csv_data = csv_raw.split("\n");
+    for (let index = 0; index < csv_data.length; index++) {
+        let data = csv_data[index].split(",");
+        callback(data);
+    }
+}
+
 let winds_raw = $download("static/winds.csv")
 let winds_data = winds_raw.split("\n");
 
-let basis = 283 // Kelvin
-
-for (let index = 0; index < winds_data.length; index++ ) {
-    let data = winds_data[index].split(",");
-
+iterate_data("winds.csv",function(data) {
     let longitude = Number(data[0]);
     let latitude = Number(data[1]);
     let temperature = Number(data[2]);
     let gust = Number(data[3]);
     let wind = Number(data[4]);
 
-    let temperature_value = ((temperature-basis)*40).clamp(0,255);
-    let gust_value = (gust*28).clamp(0,255);
-    let wind_value = (gust*36).clamp(0,255);
+    let negativity = (Math.abs(wind-10)*40).clamp(0,255);
+
+    //let temperature_value = ((temperature_value-temperature_basis)*40).clamp(0,255);
+    //let gust_value = (gust*28).clamp(0,255);
+    //let wind_value = (wind*36).clamp(0,255);
 
     var bounds = [[latitude-0.5,longitude+0.5],[latitude+0.5,longitude-0.5]];
-    let popup = L.rectangle(bounds, {fillColor: "rgb("+temperature_value+","+gust_value+","+wind_value+")", weight: 0, fillOpacity: 0.8}).addTo(map);
+    let opacity = 0
+    if (wind > 3.5) {opacity = 0.5;}
+    let popup = L.rectangle(bounds, {fillColor: "rgb("+(negativity)+","+(255-negativity)+",0)", weight: 0, fillOpacity: opacity}).addTo(map);
     popup.bindPopup("Yearly Average:\nLatitude:"+latitude
     +"\nLongtiude: "+longitude+
     "\nTemperature: "+Math.round(temperature-273)+
-    "\nGust: "+Math.round(gust)+
+    "°C\nGust: "+Math.round(gust)+
     "m/s\nWind: "+Math.round(wind)+"m/s");
     popup.on('mouseover', function (e) {
         this.openPopup();
@@ -55,7 +66,20 @@ for (let index = 0; index < winds_data.length; index++ ) {
     popup.on('mouseout', function (e) {
         this.closePopup();
     });
-}
+})
 
+iterate_data("waves.csv",function(data) {
+    let longitude = Number(data[0]);
+    let latitude = Number(data[1]);
+    let period = Number(data[2]);
+    let height = Number(data[3]);
+    let direction = Number(data[4]);
+
+    var bounds = [[latitude-0.5,longitude+0.5],[latitude+0.5,longitude-0.5]];
+
+    L.marker([48.8631169, 2.3708919], {
+        rotationAngle: direction
+    }).addTo(map);
+})
 </script>
 </html>
