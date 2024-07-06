@@ -68,8 +68,8 @@ iterate_data("winds.csv",function(data) {
     });
 })
 
-var myIcon = L.icon({
-    iconUrl: 'arrow.png',
+var arrow_icon = L.icon({
+    iconUrl: 'static/arrow.png',
     iconSize: [38, 95],
     iconAnchor: [22, 94],
     popupAnchor: [-3, -76],
@@ -86,9 +86,10 @@ iterate_data("waves.csv",function(data) {
 
     var bounds = [[latitude-0.5,longitude+0.5],[latitude+0.5,longitude-0.5]];
 
-    L.marker([48.8631169, 2.3708919], {
-        rotationAngle: direction
-    }).addTo(map);
+    /*L.marker([latitude,longitude], {
+        rotationAngle: direction,
+        icon: arrow_icon
+    }).addTo(map);*/
 })
 </script>
 </html>
