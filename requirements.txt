@@ -1,0 +1,4 @@
+Not sure right now:
+
+- flask
+- sqlite3
